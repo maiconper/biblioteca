@@ -2,6 +2,8 @@ package com.example.demo.entityDTO;
 
 import java.time.LocalDate;
 
+import com.example.demo.entity.Emprestimo;
+
 public class EmprestimoDTO {
 
 	private Integer usuarioId;
@@ -11,6 +13,25 @@ public class EmprestimoDTO {
 	private LocalDate dateEmprestimo;
 	
 	
+	public EmprestimoDTO() {
+		
+	}
+	
+	
+	public EmprestimoDTO(Integer usuarioId, Integer livroId, LocalDate dateEmprestimo) {
+		super();
+		this.usuarioId = usuarioId;
+		this.livroId = livroId;
+		this.dateEmprestimo = dateEmprestimo;
+	}
+
+
+	public EmprestimoDTO(Emprestimo emprestimo) {
+		this.usuarioId = emprestimo.getUsuarioId();
+		this.livroId = emprestimo.getLivroId();
+		this.dateEmprestimo = emprestimo.getDataEmprestimo();
+		
+	}
 
 	public Integer getUsuarioId() {
 		return usuarioId;
