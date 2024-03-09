@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +25,29 @@ public class EmprestimoController {
 	
 	
 	@PostMapping("/realizar")
-	public ResponseEntity<EmprestimoDTO> realizarEmprestimo(@RequestBody Emprestimo emprestimo){
-		Emprestimo novoEmprestimo = emprestimo;
-		EmprestimoDTO retornoEmprestimo = new EmprestimoDTO (emprestimoService.realizarEmprestimo(novoEmprestimo));
+	public ResponseEntity<EmprestimoDTO> realizarEmprestimo(@RequestBody Integer livroId){
 		
-		if(emprestimo!=null) {
-			return ResponseEntity.ok(retornoEmprestimo);
-		} else {
-			return ResponseEntity.badRequest().body(null);
-		}
-		
+		EmprestimoDTO novoEmprestimo = new EmprestimoDTO(emprestimoService.realizarEmprestimo(new EmprestimoDTO(livroId)));
+		return ResponseEntity.ok(novoEmprestimo);
 	}
+	
+	
 	@GetMapping("/listar/usuario/{id}")
-	public List<Emprestimo> listarEmprestimos(@PathVariable Integer id){
+	public List<EmprestimoDTO> listarEmprestimos(@PathVariable Integer id){
 		
-		return emprestimoService.listarEmprestimos(id);
+		List<EmprestimoDTO> dto = new ArrayList();
+		emprestimoService.listarEmprestimos(id).forEach(e -> dto.add(new EmprestimoDTO(e)));
+		
+		return dto;
 	}
+	
+	@PostMapping("/devolver/{usuarioId}/{livroId}")
+	public ResponseEntity<String> devolverEmprestimo(@PathVariable Integer usuarioId, @PathVariable Integer livroId){
+		
+		emprestimoService.devolver(usuarioId, livroId);
+		return ResponseEntity.ok("Livro devolvido!");
+	}
+	
 		
 	
 	

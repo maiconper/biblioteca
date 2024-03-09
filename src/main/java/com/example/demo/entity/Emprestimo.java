@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.time.LocalDate;
 
+import com.example.demo.entityDTO.EmprestimoDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +24,6 @@ public class Emprestimo {
 	
 	private LocalDate dataDevolucao;
 	
-
 	public Emprestimo() {
 		
 	}
@@ -33,6 +34,13 @@ public class Emprestimo {
 		this.livroId = livroId;
 		this.dataEmprestimo = dataEmprestimo;
 		this.dataDevolucao = dataDevolucao;
+	}
+	
+	public Emprestimo(EmprestimoDTO emprestimo) {
+		this.usuarioId = emprestimo.getUsuarioId();
+		this.livroId = emprestimo.getLivroId();
+		this.dataEmprestimo = emprestimo.getDateEmprestimo();
+		this.dataDevolucao = emprestimo.getDataDevolucao();
 	}
 
 	public Integer getId() {
