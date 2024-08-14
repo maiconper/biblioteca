@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Usuario;
-import com.example.demo.entityDTO.UsuarioCadastroDTO;
 import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.user.Role;
 
 @Service
 public class UsuarioService {
@@ -30,6 +32,18 @@ public class UsuarioService {
 	public boolean autenticar(Object email, String senha) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void assignRoleTouser(Long userId, Role role) {
+		Optional<Usuario> usuarioOpt = usuarioRepository.findById(userId);
+		Usuario usuario = usuarioOpt.orElseThrow(()-> new RuntimeException("Usuario nao encontrado !" + userId));
+		usuarioRepository.save(usuario);
+		
+	}
+	
+	public Optional<Usuario> findByName(String name) {
+		
+		return usuarioRepository.findByNome(name);
 	}
 
 }
