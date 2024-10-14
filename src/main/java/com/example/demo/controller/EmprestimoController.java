@@ -63,7 +63,12 @@ public class EmprestimoController {
 		return ResponseEntity.ok("Livro devolvido!");
 	}
 	
+	@PostMapping("/cancelarEmprestimo/{emprestimoId}")
+	public ResponseEntity<String> cancelarEmprestimo(@PathVariable Integer emprestimoId){
 		
+		emprestimoService.cancelar(emprestimoId);
+		return ResponseEntity.ok("Emprestimo cancelado.");
+	}	
 	
 	
 }

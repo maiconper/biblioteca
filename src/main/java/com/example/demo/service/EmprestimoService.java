@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Emprestimo;
@@ -88,6 +89,18 @@ public class EmprestimoService {
 		livro.setQuantidade(livro.getQuantidade()+1);
 		System.out.println("Testeeeee" + livro.getQuantidade());
 		livroRepository.save(livro);
+		
+	}
+	
+	public ResponseEntity cancelar(Integer idEmprestimo) {
+		
+		if(emprestimoRepository.existsById(idEmprestimo)) {
+			emprestimoRepository.deleteById(idEmprestimo);
+			return ResponseEntity.ok("Emprestimo cancelado.");
+		}else {
+			
+			throw new RuntimeException();
+		}
 		
 	}
 	
