@@ -3,9 +3,11 @@ package com.example.demo.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Usuario;
+import com.example.demo.entityDTO.UsuarioCadastroDTO;
 import com.example.demo.repository.UsuarioRepository;
 import com.example.demo.user.Role;
 
@@ -14,6 +16,7 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
 	
 	/*
 	 * @Autowired private PasswordEncoder passwordEncoder;
@@ -37,6 +40,17 @@ public class UsuarioService {
 	public void assignRoleTouser(Long userId, Role role) {
 		Optional<Usuario> usuarioOpt = usuarioRepository.findById(userId);
 		Usuario usuario = usuarioOpt.orElseThrow(()-> new RuntimeException("Usuario nao encontrado !" + userId));
+		usuarioRepository.save(usuario);
+		
+	}
+	
+	public void salvarUsuario(UsuarioCadastroDTO usuarioDTO) {
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+		usuarioDTO.setPassword(passwordEncoder.encode(usuarioDTO.getPassword()));
+		Usuario usuario = new Usuario(usuarioDTO);
+		
 		usuarioRepository.save(usuario);
 		
 	}

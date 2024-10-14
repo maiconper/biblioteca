@@ -24,11 +24,26 @@ public class EmprestimoController {
 	private EmprestimoService emprestimoService;
 	
 	
-	@PostMapping("/realizar")
-	public ResponseEntity<EmprestimoDTO> realizarEmprestimo(@RequestBody Integer livroId){
+	@PostMapping("/realizar/{livroId}/{userId}")
+	public ResponseEntity<EmprestimoDTO> realizarEmprestimo(@PathVariable Integer livroId, @PathVariable Integer userId){
 		
-		EmprestimoDTO novoEmprestimo = new EmprestimoDTO(emprestimoService.realizarEmprestimo(new EmprestimoDTO(livroId)));
+		EmprestimoDTO novoEmprestimo = new EmprestimoDTO(emprestimoService.realizarEmprestimo(new EmprestimoDTO(livroId), userId));
 		return ResponseEntity.ok(novoEmprestimo);
+	}
+	
+	@GetMapping("/listarTodos")
+	public ResponseEntity<List<EmprestimoDTO>> listarEmprestimos(){
+		
+		List<Emprestimo> emprestimos = emprestimoService.listarEmprestimos();		
+		List<EmprestimoDTO> dto = new ArrayList();
+		
+		for (Emprestimo e : emprestimos){
+			
+			dto.add(new EmprestimoDTO(e));
+		}
+		
+		
+		return ResponseEntity.ok(dto);
 	}
 	
 	

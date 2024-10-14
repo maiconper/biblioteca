@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.demo.entityDTO.UsuarioCadastroDTO;
 import com.example.demo.user.Role;
 
 import jakarta.persistence.Entity;
@@ -40,6 +41,27 @@ public class Usuario implements UserDetails{
 		this.email = email;
 		this.role = role;
 	}
+	
+	public Usuario(String nome, String senha, Role role) {
+		
+		this.id = id;
+		this.nome = nome;
+		this.senha = senha;
+		this.email = email;
+		this.role = role;
+	}
+	
+	public Usuario(UsuarioCadastroDTO usuarioCadastro) {
+		
+		
+		this.nome = usuarioCadastro.getUsername();
+		this.senha = usuarioCadastro.getPassword();
+		this.email = usuarioCadastro.getEmail();
+		this.role = usuarioCadastro.getRole();
+		
+	}
+	
+	
 	public Role getRole() {
 		return role;
 	}

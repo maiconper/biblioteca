@@ -1,31 +1,53 @@
 package com.example.demo.entityDTO;
 
+import com.example.demo.user.Role;
+
 public class UsuarioCadastroDTO {
 
 	
-	private String name;
+	private String username;
+	
+	private String password;
 	
 	private String email;
 	
-	private String senha;
-
-	public UsuarioCadastroDTO(String name, String email, String senha) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.senha = senha;
-	}
-
+	private Role role;
+	
 	public UsuarioCadastroDTO() {
-		super();
+		
+		
+	}
+	
+	public UsuarioCadastroDTO(String username, String password, Role role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		
+	}
+	
+
+	public String getUsername() {
+		return username;
 	}
 
-	public String getName() {
-		return name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getEmail() {
@@ -36,14 +58,6 @@ public class UsuarioCadastroDTO {
 		this.email = email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
 	
 	
 	
