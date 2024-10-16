@@ -68,7 +68,14 @@ public class EmprestimoController {
 		
 		emprestimoService.cancelar(emprestimoId);
 		return ResponseEntity.ok("Emprestimo cancelado.");
-	}	
+	}
+	
+	@PostMapping("/renovarEmprestimo/{emprestimoId}")
+	public ResponseEntity<String> renovarEmprestimo(@PathVariable Integer emprestimoId){
+		
+		emprestimoService.renovar(emprestimoId);
+		return ResponseEntity.ok("Emprestimo renovado.");
+	}
 	
 	
 }

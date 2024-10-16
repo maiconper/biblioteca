@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -100,6 +101,30 @@ public class EmprestimoService {
 		}else {
 			
 			throw new RuntimeException();
+		}
+		
+	}
+
+	public ResponseEntity renovar(Integer emprestimoId) {
+		
+		try {
+			
+			Optional<Emprestimo> optionalEmprestimo = emprestimoRepository.findById(emprestimoId);
+		
+			if(!optionalEmprestimo.isPresent()) {
+				throw new RuntimeException("Emprestimo nao existe");
+			}
+			
+			Emprestimo emprestimo = optionalEmprestimo.get();
+			
+			emprestimo.setDataDevolucao(emprestimo.getDataDevolucao().plusWeeks(2));
+			emprestimoRepository.save(emprestimo);
+			
+			return ResponseEntity.ok("Empréstimo renovado com sucesso!");
+			
+		} catch(Exception e) {
+			
+			 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao renovar empréstimo: " + e.getMessage());
 		}
 		
 	}
