@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,5 +64,22 @@ public class UsuarioController {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar o usuário: " + e.getMessage());
 	        }
 	}
+		
+	@PutMapping("/atualizarUsuario/{userId}")
+	public ResponseEntity<?> atualizarUsuario(@RequestBody UsuarioCadastroDTO usuarioDTO, @PathVariable Integer userId){
+		
+		  try {
+	            // Chama o serviço para adicionar o usuário
+
+	            usuarioService.atualizarUsuario(userId,usuarioDTO);
+
+	            // Retorna uma resposta de sucesso com o status 201 (Created)
+	            return ResponseEntity.status(HttpStatus.CREATED).body("Usuário atualizado com sucesso!");
+	        } catch (Exception e) {
+	            // Se ocorrer algum erro, retorna uma resposta com status 400 (Bad Request) e a mensagem de erro
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atualizar o usuário: " + e.getMessage());
+	        }
+	}
+	
 	
 }

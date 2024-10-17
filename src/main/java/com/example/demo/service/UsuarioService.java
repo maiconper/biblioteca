@@ -60,4 +60,51 @@ public class UsuarioService {
 		return usuarioRepository.findByNome(name);
 	}
 
+	public Optional<Usuario> findById(Integer userId) {
+		
+		return usuarioRepository.findById(userId);
+	}
+	
+	public UsuarioCadastroDTO atualizarUsuario(Integer userId, UsuarioCadastroDTO newUser) {
+		
+		String username = newUser.getUsername();		
+		String password = newUser.getPassword();		
+		String email = newUser.getEmail();		
+		Role role = newUser.getRole();
+		
+		try {
+	        Optional<Usuario> oldUser = usuarioRepository.findById(userId);
+	        
+	        if(!oldUser.isPresent()) {
+	        	
+	        	throw new RuntimeException("Usuario nao encontrado!");
+	        }
+	        
+	        if(!username.isEmpty()) {
+	        	oldUser.get().setNome(username);
+	        }
+	        if(!!email.isEmpty()) {
+	        	oldUser.get().setEmail(email);
+	        }
+	        if(!password.isEmpty()) {
+	        	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	    		
+	        	oldUser.get().setSenha(passwordEncoder.encode(password));
+	        	
+	        }
+	        if(role != null) {
+	        	oldUser.get().setRole(role);
+	        }
+	        
+	        usuarioRepository.save(oldUser.get());
+	        
+	        return new UsuarioCadastroDTO(oldUser.get());
+		
+		} catch(Exception e) {
+			throw e;
+		}
+		
+		
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.example.demo.entityDTO;
 
+import com.example.demo.entity.Usuario;
 import com.example.demo.user.Role;
 
 public class UsuarioCadastroDTO {
@@ -22,6 +23,13 @@ public class UsuarioCadastroDTO {
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		
+	}
+	
+	public UsuarioCadastroDTO(Usuario usuario) {
+		this.username = usuario.getUsername();
+		this.password = usuario.getPassword();
+		this.role = usuario.getRole();
 		
 	}
 	
