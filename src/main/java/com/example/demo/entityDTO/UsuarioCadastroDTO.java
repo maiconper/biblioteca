@@ -30,6 +30,7 @@ public class UsuarioCadastroDTO {
 		this.username = usuario.getUsername();
 		this.password = usuario.getPassword();
 		this.role = usuario.getRole();
+		this.email = usuario.getEmail();
 		
 	}
 	

@@ -65,6 +65,25 @@ public class UsuarioService {
 		return usuarioRepository.findById(userId);
 	}
 	
+	public UsuarioCadastroDTO informacoes(Integer userId) {
+		try {
+			
+			Optional<Usuario> user = usuarioRepository.findById(userId);
+			if(user.isEmpty()) {
+				
+				throw new RuntimeException("Usuario nao encontrado!");
+			}
+			
+			return new UsuarioCadastroDTO(user.get());
+			
+		}catch(Exception e){
+			
+			throw e;
+		}
+		
+		
+	}
+	
 	public UsuarioCadastroDTO atualizarUsuario(Integer userId, UsuarioCadastroDTO newUser) {
 		
 		String username = newUser.getUsername();		

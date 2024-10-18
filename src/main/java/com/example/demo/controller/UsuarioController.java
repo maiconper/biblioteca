@@ -15,6 +15,8 @@ import com.example.demo.entity.Usuario;
 import com.example.demo.entityDTO.UsuarioCadastroDTO;
 import com.example.demo.service.UsuarioService;
 
+import jakarta.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -64,6 +66,8 @@ public class UsuarioController {
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar o usuário: " + e.getMessage());
 	        }
 	}
+	
+	
 		
 	@PutMapping("/atualizarUsuario/{userId}")
 	public ResponseEntity<?> atualizarUsuario(@RequestBody UsuarioCadastroDTO usuarioDTO, @PathVariable Integer userId){
@@ -79,6 +83,20 @@ public class UsuarioController {
 	            // Se ocorrer algum erro, retorna uma resposta com status 400 (Bad Request) e a mensagem de erro
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atualizar o usuário: " + e.getMessage());
 	        }
+	}
+	
+	@GetMapping("/informacoes/{idUser}")
+	public UsuarioCadastroDTO informacoes(@PathVariable Integer idUser) {
+		try {
+			UsuarioCadastroDTO user = usuarioService.informacoes(idUser);
+			return user;
+			
+			
+		}catch(Exception e) {
+			
+			throw e;
+		}
+		
 	}
 	
 	
