@@ -3,6 +3,9 @@ package com.example.demo.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +66,17 @@ public class UsuarioService {
 	public Optional<Usuario> findById(Integer userId) {
 		
 		return usuarioRepository.findById(userId);
+	}
+	
+	public ResponseEntity<?> removerUsuario(Integer userId) {
+		try {
+			
+			usuarioRepository.deleteById(userId);
+			return ResponseEntity.status(HttpStatus.OK).body("Usuario removido!");
+		}catch(Exception e){
+			throw new RuntimeException("Usuario nao encotrado!");
+		}
+		
 	}
 	
 	public UsuarioCadastroDTO informacoes(Integer userId) {
