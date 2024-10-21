@@ -23,6 +23,16 @@ public class LivroController {
 		return livroService.listarTodos();
 	}
 	
+	@GetMapping("/disponiveis")
+	public List<Livro> livrosDisponiveis(){
+		try {
+			return livroService.listarDisponiveis();
+		}catch(Exception e) {
+			
+			throw new RuntimeException("Nao ha livros disponiveis!");
+		}		
+	}
+	
 	@PostMapping("/adicionar")
 	public ResponseEntity<LivroDTO> adicionarLivro(@RequestBody Livro livro){
 		

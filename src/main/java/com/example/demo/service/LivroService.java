@@ -64,4 +64,9 @@ public class LivroService {
 	public void remover(Integer id) {
 		livroRepository.deleteById(id);
 	}
+
+	public List<Livro> listarDisponiveis() {
+		
+		return livroRepository.findLivrosDisponiveis();
+	}
 }
